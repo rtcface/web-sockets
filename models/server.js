@@ -17,6 +17,10 @@ class Server {
 
         // Routes for my app
         this.routes();
+
+        // Configuration web sockets
+
+        this.sockets();
     }
 
     middlewares() {
@@ -30,6 +34,15 @@ class Server {
 
     routes() {        
         //this.app.use(this.pathUserRoute, require('../routes/user.routes'));
+    }
+
+    sockets() { 
+        this.io.on('connection', socket =>{
+            console.log("Client Conected",socket.id);
+            socket.on('disconnect',() => {
+                console.log("Client Disconnected",socket.id);
+            })
+        });
     }
 
     listen(){
